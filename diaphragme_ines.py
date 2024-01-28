@@ -9,11 +9,14 @@ P = 101325              # pression (Pa)
 g = 9.81                # accélération de la pesanteur (m/s2)
 nu = mu / rho           # viscosité cinématique (m2/s)
 
+
 # Données : tableur D0, D1 Re, DeltaP, zeta_simu, zeta_phi, zeta1
 D0 = 0.034
 Dh = D0
 D1 = 0.083
-
+tau = 1.3
+l = 0.002
+print("l/Dh = ", l/Dh)
 # Ouvrir le fichier
 with open("data.txt", 'r') as fichier:
     # Lire les lignes du fichier
@@ -43,7 +46,6 @@ for line in lines:
 
 # Coefficient d’effet de l'épaisseur du diaphragme
 #phi_Dh = (0.25 + 0.535 * (1/Dh)**8) / (0.05 + (1/Dh)**7)
-tau = 1.3
 
 # Tracer tau en fonction de 1/Dh entre 0 et 3
 #Dh = np.linspace(0,3,10)
@@ -69,16 +71,17 @@ zeta1 = [0 for i in range(len(Re0))]
 #(Re_0 > 10^5)
 for i in range (len(Re0)):
     if Re0[i] >= 10**5:
-        zeta1[i] = (0.5 *(1-F0/F1)**0.75 + tau*(1-F0/F1)**1.375 + (1-F0/F1)**2 + lambda_0/Dh) * (F0/F1)**2 
+        zeta1[i] = (0.5 *(1-F0/F1)**0.75 + tau*(1-F0/F1)**1.375 + (1-F0/F1)**2 + lambda_0/Dh) * (F1/F0)**2 
     else : 
         zeta1[i] = 33* (F1/F0)**2 /Re0[i]
 
 print(zeta1)
-
+print(zeta_simu)
+print(F0/F1)
 # Tracer zeta_1 et zeta_simu en fonction de Re_0 en échelle log
 plt.figure(0)
 plt.semilogx(Re0,zeta1,'r',label='zeta_théorique')
-plt.semilogx(Re0,zeta_simu,'b',label='zeta_simulation')
+plt.semilogx(Re0,zeta_simu,'b',label='zeta_simulation',linestyle='--')
 plt.xlabel('Re_0')
 plt.ylabel('zeta_theorique et zeta_simulation')
 plt.legend()
