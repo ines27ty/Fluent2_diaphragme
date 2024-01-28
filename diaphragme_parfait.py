@@ -11,14 +11,15 @@ nu = mu / rho           # viscosité cinématique (m2/s)
 
 
 # Données : tableur D0, D1 Re, DeltaP, zeta_simu, zeta_phi, zeta1
-D0 = 0.034
+D0 = 0.018
 Dh = D0
 D1 = 0.083
 tau = 1.3
 l = 0.002
 print("l/Dh = ", l/Dh)
+
 # Ouvrir le fichier
-with open("data_ines.txt", 'r') as fichier:
+with open("data_parfait.txt", 'r') as fichier:
     # Lire les lignes du fichier
     lines = fichier.readlines()
 
@@ -72,8 +73,10 @@ zeta1 = [0 for i in range(len(Re0))]
 for i in range (len(Re0)):
     if Re0[i] >= 10**5:
         zeta1[i] = (0.5 *(1-F0/F1)**0.75 + tau*(1-F0/F1)**1.375 + (1-F0/F1)**2 + lambda_0/Dh) * (F1/F0)**2 
-    else : 
+    elif Re0[i] < 10: 
         zeta1[i] = 33* (F1/F0)**2 /Re0[i]
+
+
 
 print(zeta1)
 print(zeta_simu)
