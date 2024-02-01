@@ -67,11 +67,18 @@ zeta_simu = [delta_P[i] * 2 / (rho * w1_simu[i]**2) for i in range(len(delta_P))
 lambda_0  = 0.02
 
 zeta1 = [0 for i in range(len(Re0))]
+zeta_quad = [0 for i in range(len(Re0))]
+eps_0 = F0 / F1
+
 # Coefficient de perte de charge 
-#(Re_0 > 10^5)
 for i in range (len(Re0)):
     if Re0[i] >= 10**5:
+        lambda_0 = 0.045
         zeta1[i] = (0.5 *(1-F0/F1)**0.75 + tau*(1-F0/F1)**1.375 + (1-F0/F1)**2 + lambda_0/Dh) * (F1/F0)**2 
+    elif 10 < Re0[i] < 30:
+        lambda_0 = 0.08-1.5*10**(-5)* Re0[i]
+        zeta_quad[i] =  (0.5 *(1-F0/F1)**0.75 + tau*(1-F0/F1)**1.375 + (1-F0/F1)**2 + lambda_0/Dh) * (F1/F0)**2 
+        zeta1[i] = 33* (F1/F0)**2 /Re0[i] + eps_0 * zeta_quad[i]
     else : 
         zeta1[i] = 33* (F1/F0)**2 /Re0[i]
 
@@ -84,6 +91,7 @@ plt.semilogx(Re0,zeta1,'r',label='zeta_théorique')
 plt.semilogx(Re0,zeta_simu,'b',label='zeta_simulation',marker='o', linestyle='--')
 plt.xlabel('Re_0')
 plt.ylabel('Coeff de perte de charge zeta_1')
+plt.title("F0/F1 = 0.4")
 plt.legend()
 plt.grid()
 plt.show()
