@@ -1,4 +1,5 @@
 #Diaphragme à bord épais - Section circulaire
+# Version corrigée
 import matplotlib.pyplot as plt
 import numpy as np
 from math import * 
