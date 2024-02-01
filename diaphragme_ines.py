@@ -11,9 +11,12 @@ nu = mu / rho           # viscosité cinématique (m2/s)
 
 
 # Données : tableur D0, D1 Re, DeltaP, zeta_simu, zeta_phi, zeta1
-D0 = 0.034
+R0 = 0.034
+R1 = 0.083
+D0 = 2*R0
+D1 = 2*R1
 Dh = D0
-D1 = 0.083
+
 tau = 1.3
 l = 0.002
 print("l/Dh = ", l/Dh)
@@ -55,8 +58,10 @@ for line in lines:
 #plt.ylabel('phi_Dh')
 #plt.show()
 
-F1 = np.pi*D1/4
-F0 = np.pi*D0/4
+F1 = np.pi*R1**2
+F0 = np.pi*R0**2
+eps_0 = F0 / F1
+
 #G = Q*rho
 
 w1 = [Re1[i] * mu / (D1*rho)for i in range(len(w1))]
@@ -68,7 +73,6 @@ lambda_0  = 0.02
 
 zeta1 = [0 for i in range(len(Re0))]
 zeta_quad = [0 for i in range(len(Re0))]
-eps_0 = F0 / F1
 
 # Coefficient de perte de charge 
 for i in range (len(Re0)):
