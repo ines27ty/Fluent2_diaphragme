@@ -282,4 +282,33 @@ plt.grid()
 plt.title("Profil de pression à la ligne 0.30 m")
 plt.legend()
 
+
+# Tracé des profils de pression de toutes les lignes laminaire
+plt.figure(6)
+plt.plot(P_lam_e,x_lam_e,label='P_lam')
+plt.plot(P_lam_19,x_lam_19,label='P_lam')
+plt.plot(P_lam_or,x_lam_or,label='P_lam')
+plt.plot(P_lam_21,x_lam_21,label='P_lam')
+plt.plot(P_lam_25,x_lam_25,label='P_lam')
+plt.plot(P_lam_30,x_lam_30,label='P_lam')
+plt.xlabel('P')
+plt.ylabel('y')
+plt.grid()
+plt.title("Profil de pression laminaire")
+plt.legend()
+
+# Tracé des profils de pression de toutes les lignes turbulentes
+plt.figure(7)
+plt.plot(P_turb_e,x_turb_e,label='P_turb')
+plt.plot(P_turb_19,x_turb_19,label='P_turb')
+plt.plot(P_tur_or,x_tur_or,label='P_turb')
+plt.plot(P_tur_21,x_tur_21,label='P_turb')
+plt.plot(P_tur_25,x_tur_25,label='P_turb')
+plt.plot(P_tur_30,x_tur_30,label='P_turb')
+plt.xlabel('P')
+plt.ylabel('y')
+plt.grid()
+plt.title("Profil de pression turbulente")
+plt.legend()
+
 plt.show()
